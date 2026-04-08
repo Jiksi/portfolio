@@ -6,12 +6,12 @@ export function HeroSection() {
                     [01] &mdash; SOFTWARE ENGINEER
                 </p>
                 <h1 className="hero-title animate-fade-up delay-2">
-                    Building systems
+                    I need work,
                     <br />
-                    <span className="hero-title-indent">with precision.</span>
+                    <span className="hero-title-indent">you need worker.</span>
                 </h1>
                 <div className="hero-footer animate-fade-up delay-3">
-                    <p>Specializing in distributed architecture</p>
+                    <p>Lets work together</p>
                     <p>and refined user interfaces.</p>
                 </div>
             </div>
