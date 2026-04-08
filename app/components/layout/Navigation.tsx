@@ -5,6 +5,67 @@ const navLinks = [
     { href: '#contact', label: 'Contact' },
 ];
 
+function StaggeredTextLink({ href, label }: { href: string; label: string }) {
+    return (
+        <motion.a
+            href={href}
+            className="nav-link relative flex overflow-hidden"
+            initial="initial"
+            whileHover="hovered"
+        >
+            <div className="flex">
+                {label.split('').map((char, i) => (
+                    <motion.span
+                        key={i}
+                        className="inline-block"
+                        variants={{
+                            initial: { y: 0 },
+                            hovered: { y: '100%' },
+                        }}
+                        transition={{
+                            duration: 0.3,
+                            ease: 'easeInOut',
+                            delay: i * 0.025,
+                        }}
+                    >
+                        {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                ))}
+            </div>
+            <div className="absolute inset-0 flex">
+                {label.split('').map((char, i) => (
+                    <motion.span
+                        key={i}
+                        className="inline-block"
+                        variants={{
+                            initial: { y: '-100%' },
+                            hovered: { y: 0 },
+                        }}
+                        transition={{
+                            duration: 0.3,
+                            ease: 'easeInOut',
+                            delay: i * 0.025,
+                        }}
+                    >
+                        {char === ' ' ? '\u00A0' : char}
+                    </motion.span>
+                ))}
+            </div>
+            <motion.div
+                className="absolute bottom-0 left-0 h-px w-full bg-current"
+                variants={{
+                    initial: { scaleX: 0, originX: 0 },
+                    hovered: { scaleX: 1 },
+                }}
+                transition={{
+                    duration: 0.3,
+                    ease: 'easeInOut',
+                }}
+            />
+        </motion.a>
+    );
+}
+
 export function Navigation() {
     return (
         <motion.nav
@@ -16,9 +77,11 @@ export function Navigation() {
             <img src="/logo.svg" alt="Logo" className="size-14" />
             <div className="relative flex gap-4 text-xs tracking-widest uppercase">
                 {navLinks.map((link) => (
-                    <a key={link.href} href={link.href} className="nav-link">
-                        {link.label}
-                    </a>
+                    <StaggeredTextLink
+                        key={link.href}
+                        href={link.href}
+                        label={link.label}
+                    />
                 ))}
             </div>
         </motion.nav>
