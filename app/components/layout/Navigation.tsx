@@ -9,7 +9,7 @@ function StaggeredTextLink({ href, label }: { href: string; label: string }) {
     return (
         <motion.a
             href={href}
-            className="nav-link relative flex overflow-hidden"
+            className="relative flex overflow-hidden text-xs tracking-widest uppercase"
             initial="initial"
             whileHover="hovered"
         >
@@ -75,7 +75,7 @@ export function Navigation() {
             transition={{ duration: 0.9, ease: 'easeInOut' }}
         >
             <img src="/logo.svg" alt="Logo" className="size-14" />
-            <div className="relative flex gap-4 text-xs tracking-widest uppercase">
+            <div className="flex gap-4">
                 {navLinks.map((link) => (
                     <StaggeredTextLink
                         key={link.href}
