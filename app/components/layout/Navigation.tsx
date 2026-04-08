@@ -1,7 +1,9 @@
 export function Navigation() {
     return (
         <nav className="nav animate-fade-up">
-            <div className="nav-brand">JIKSI</div>
+            <div className="nav-brand">
+                <img src="/public/logo.svg" alt="Logo" className="size-14" />
+            </div>
             <div className="nav-links">
                 <a href="#blog" className="nav-link">
                     Blog
