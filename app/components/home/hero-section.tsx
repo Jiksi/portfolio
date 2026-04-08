@@ -1,6 +1,6 @@
 export function HeroSection() {
     return (
-        <section className="hero">
+        <section className="flex min-h-svh flex-col justify-center">
             <div className="hero-content">
                 <p className="hero-meta animate-fade-up delay-1">
                     [01] &mdash; SOFTWARE ENGINEER

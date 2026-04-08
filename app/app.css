@@ -67,11 +67,6 @@
         @apply pointer-events-none fixed top-0 left-0 z-0 h-full w-full;
     }
 
-    /* Hero */
-    .hero {
-        @apply flex min-h-[70vh] flex-col justify-center pb-12;
-    }
-
     .hero-meta {
         @apply mb-4 text-xs tracking-widest text-muted uppercase;
     }
