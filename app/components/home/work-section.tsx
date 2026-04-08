@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { projects } from '~/data/projects';
-import { ProjectItem } from './ProjectItem';
+import { ProjectItem } from './project-item';
 
 export function WorkSection() {
     const [expandedId, setExpandedId] = useState<string | null>(null);

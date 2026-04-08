@@ -9,7 +9,7 @@ import {
 
 import type { Route } from './+types/root';
 import './app.css';
-import SmoothScroll from './components/SmoothScroll';
+import SmoothScroll from './components/smooth-scroll';
 
 export const links: Route.LinksFunction = () => [
     { rel: 'preconnect', href: 'https://fonts.googleapis.com' },

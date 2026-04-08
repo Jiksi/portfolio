@@ -1,11 +1,11 @@
 import { motion } from 'motion/react';
 import { useRef } from 'react';
-import { ContactSection } from '~/components/home/ContactSection';
-import { HeroSection } from '~/components/home/HeroSection';
-import { WorkSection } from '~/components/home/WorkSection';
-import { Footer } from '~/components/layout/Footer';
-import { Navigation } from '~/components/layout/Navigation';
-import { useMouseSpotlight } from '~/hooks/useMouseSpotlight';
+import { ContactSection } from '~/components/home/contact-section';
+import { HeroSection } from '~/components/home/hero-section';
+import { WorkSection } from '~/components/home/work-section';
+import { Footer } from '~/components/layout/footer';
+import { Navigation } from '~/components/layout/navigation';
+import { useMouseSpotlight } from '~/hooks/use-mouse';
 import type { Route } from './+types/home';
 
 export function meta({}: Route.MetaArgs) {

@@ -1,6 +1,6 @@
 import { animate, frame, useMotionTemplate, useSpring } from 'motion/react';
 import { useEffect } from 'react';
-import { useIsMobile } from './useIsMobile';
+import { useIsMobile } from './use-mobile';
 
 const springConfig = { damping: 20, stiffness: 50, restDelta: 0.001 };
 

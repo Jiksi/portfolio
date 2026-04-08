@@ -1,4 +1,4 @@
-import { ImageSlider } from '../ui/ImageSlider';
+import { ImageSlider } from '../ui/image-slider';
 
 export type ProjectProps = {
     project: {
