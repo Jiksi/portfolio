@@ -1,5 +1,6 @@
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from 'react';
+import { Link } from 'react-router';
 import MagneticButton from '../magnetic-button';
 
 const navLinks = [
@@ -78,7 +79,7 @@ export function Navigation() {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-50% mask-b-to-100% px-4 pt-5 pb-20 md:px-8"
+            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-80% mask-b-to-100% p-4 md:px-8"
             initial={{ opacity: 0, y: -30 }}
             animate={{
                 opacity: 1,
@@ -90,9 +91,11 @@ export function Navigation() {
             }}
             transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
         >
-            <MagneticButton>
-                <img src="/logo.svg" alt="Log" className="size-14" />
-            </MagneticButton>
+            <Link to="/">
+                <MagneticButton>
+                    <img src="/logo.svg" alt="Log" className="size-14" />
+                </MagneticButton>
+            </Link>
             <div className="flex gap-4">
                 {navLinks.map((link) => (
                     <StaggeredTextLink
