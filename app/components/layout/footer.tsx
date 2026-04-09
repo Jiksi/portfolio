@@ -14,7 +14,7 @@ export function Footer() {
             <p>
                 &copy; {new Date().getFullYear()} &mdash; All Rights Reserved.
             </p>
-            <p>Designed with Intent.</p>
+            <p>Developed with A442U.</p>
         </motion.footer>
     );
 }
