@@ -78,7 +78,7 @@ export function Navigation() {
     return (
         <motion.nav
             className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-50% mask-b-to-100% px-4 pt-5 pb-20 md:px-8"
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -30 }}
             animate={{
                 opacity: 1,
                 y: 0,
@@ -87,7 +87,7 @@ export function Navigation() {
                     ? 'rgba(255, 255, 255, 0.1)'
                     : 'rgba(0, 0, 0, 0)',
             }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
+            transition={{ duration: 1, ease: [0.19, 1, 0.22, 1] }}
         >
             <img src="/logo.svg" alt="Logo" className="size-14" />
             <div className="flex gap-4">
