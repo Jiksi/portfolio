@@ -9,20 +9,6 @@
 
     --font-display: 'Cormorant Garamond', serif;
     --font-mono: 'Space Mono', monospace;
-
-    /* Custom animations */
-    @keyframes fade-up {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    --animate-fade-up: fade-up 1s cubic-bezier(0.19, 1, 0.22, 1) forwards;
 }
 
 @layer base {
@@ -49,45 +35,6 @@
 }
 
 @layer components {
-    /* Layout */
-    .container {
-        @apply relative z-10 mx-auto max-w-350 px-4 md:px-8;
-    }
-
-    /* Grid overlay */
-    .grid-overlay {
-        @apply pointer-events-none fixed top-0 left-0 z-0 h-screen w-screen;
-        background-image:
-            linear-gradient(to right, var(--color-border) 1px, transparent 1px),
-            linear-gradient(to bottom, var(--color-border) 1px, transparent 1px);
-        background-size: 50px 50px;
-    }
-
-    .grid-overlay-container {
-        @apply pointer-events-none fixed top-0 left-0 z-0 h-full w-full;
-    }
-
-    .hero-meta {
-        @apply mb-4 text-xs tracking-widest text-muted uppercase;
-    }
-
-    .hero-title {
-        @apply mb-4 text-[clamp(3rem,8vw,8rem)];
-    }
-
-    .hero-title-indent {
-        @apply block pl-[15vw] text-accent italic;
-    }
-
-    .hero-footer {
-        @apply flex flex-col gap-2 border-t border-border pt-3 text-sm text-muted md:flex-row md:justify-between;
-    }
-
-    /* Sections */
-    section {
-        @apply border-t border-border py-12;
-    }
-
     .section-header {
         @apply mb-4 flex items-baseline justify-between;
     }
@@ -244,25 +191,5 @@
 
     .contact-email:hover .contact-email-underline {
         @apply origin-left scale-x-0;
-    }
-}
-
-@layer utilities {
-    .animate-fade-up {
-        opacity: 0;
-        animation: var(--animate-fade-up);
-    }
-
-    .delay-1 {
-        animation-delay: 0.1s;
-    }
-    .delay-2 {
-        animation-delay: 0.2s;
-    }
-    .delay-3 {
-        animation-delay: 0.3s;
-    }
-    .delay-4 {
-        animation-delay: 0.4s;
     }
 }

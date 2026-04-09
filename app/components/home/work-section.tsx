@@ -28,7 +28,7 @@ export function WorkSection() {
     }, [expandedId]);
 
     return (
-        <section id="work" className="work">
+        <section id="work" className="min-h-svh">
             <div className="section-header animate-fade-up">
                 <h2 className="section-title">Selected Works</h2>
                 <span className="section-meta">[02]</span>
