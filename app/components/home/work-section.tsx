@@ -2,7 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { projects } from '~/data/projects';
 import { ProjectItem } from './project-item';
 
-export function WorkSection({ ref }: { ref?: React.RefObject<HTMLElement | null> }) {
+export function WorkSection({
+    ref,
+}: {
+    ref?: React.RefObject<HTMLElement | null>;
+}) {
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const workListRef = useRef<HTMLDivElement>(null);
 
@@ -28,7 +32,7 @@ export function WorkSection({ ref }: { ref?: React.RefObject<HTMLElement | null>
     }, [expandedId]);
 
     return (
-        <section id="work" ref={ref} className="min-h-svh">
+        <section id="work" ref={ref}>
             <div className="section-header animate-fade-up">
                 <h2 className="section-title">Selected Works</h2>
                 <span className="section-meta">[02]</span>
