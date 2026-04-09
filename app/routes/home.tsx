@@ -24,9 +24,9 @@ export default function Home() {
 
     return (
         <div ref={containerRef}>
-            <div className="grid-overlay-container">
+            <div className="fixed top-0 left-0 z-0 size-full">
                 <motion.div
-                    className="grid-overlay"
+                    className="fixed top-0 left-0 z-0 size-full bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-size-[50px_50px]"
                     style={{
                         maskImage: maskImage,
                         WebkitMaskImage: maskImage,
@@ -34,7 +34,7 @@ export default function Home() {
                 />
             </div>
 
-            <main className="container">
+            <main className="relative z-10 mx-auto max-w-350 px-4 md:px-8">
                 <Navigation />
                 <HeroSection />
                 <WorkSection />
