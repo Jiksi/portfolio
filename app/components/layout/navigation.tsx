@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { useState } from 'react';
 
 const navLinks = [
     { href: '#work', label: 'Works' },
@@ -67,12 +68,26 @@ function StaggeredTextLink({ href, label }: { href: string; label: string }) {
 }
 
 export function Navigation() {
+    const [isScrolled, setIsScrolled] = useState(false);
+    const { scrollY } = useScroll();
+
+    useMotionValueEvent(scrollY, 'change', (latest) => {
+        setIsScrolled(latest > 50);
+    });
+
     return (
         <motion.nav
-            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-50% mask-b-to-100% px-4 pt-5 pb-20 backdrop-blur-sm md:px-8"
+            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-50% mask-b-to-100% px-4 pt-5 pb-20 md:px-8"
             initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: 'easeInOut' }}
+            animate={{
+                opacity: 1,
+                y: 0,
+                backdropFilter: isScrolled ? 'blur(8px)' : 'blur(0px)',
+                backgroundColor: isScrolled
+                    ? 'rgba(255, 255, 255, 0.1)'
+                    : 'rgba(0, 0, 0, 0)',
+            }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
         >
             <img src="/logo.svg" alt="Logo" className="size-14" />
             <div className="flex gap-4">
