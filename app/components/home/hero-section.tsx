@@ -1,52 +1,106 @@
-import { AnimatePresence, motion } from 'motion/react';
-import { useEffect, useState } from 'react';
+import {
+    AnimatePresence,
+    motion,
+    useReducedMotion,
+    type Variants,
+} from 'motion/react';
 
-export function HeroSection() {
-    const [isVisible, setIsVisible] = useState(true);
-
-    useEffect(() => {
-        const workSection = document.getElementById('work');
-        if (!workSection) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsVisible(!entry.isIntersecting);
-            },
-            { threshold: 0.2 },
-        );
-
-        observer.observe(workSection);
-        return () => observer.disconnect();
-    }, []);
+export function HeroSection({ isWorkInView }: { isWorkInView?: boolean }) {
+    const isVisible = !isWorkInView;
+    const shouldReduceMotion = useReducedMotion();
 
     const scrollToWork = () => {
-        document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' });
+        const workSection = document.getElementById('work');
+        if (workSection) {
+            workSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
+    const containerVariants: Variants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.1,
+            },
+        },
+    };
+
+    const itemVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: shouldReduceMotion ? 0 : 30,
+            filter: shouldReduceMotion ? 'none' : 'blur(10px)',
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            transition: {
+                duration: 1.2,
+                ease: [0.19, 1, 0.22, 1],
+            },
+        },
+    };
+
+    const scrollButtonVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            y: 20,
+            x: '-50%',
+            filter: 'blur(8px)',
+        },
+        visible: {
+            opacity: 1,
+            y: 0,
+            x: '-50%',
+            filter: 'blur(0px)',
+            transition: {
+                duration: 1,
+                ease: [0.19, 1, 0.22, 1],
+            },
+        },
+        floating: {
+            y: [0, -8, 0],
+            x: '-50%',
+            transition: {
+                duration: 2.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+            },
+        },
+        hover: {
+            scale: 1.1,
+            color: 'var(--color-foreground)',
+            transition: { type: 'spring', stiffness: 400, damping: 10 },
+        },
+        tap: { scale: 0.95 },
+        exit: {
+            opacity: 0,
+            y: 20,
+            x: '-50%',
+            filter: 'blur(8px)',
+            transition: { duration: 0.4 },
+        },
     };
 
     return (
-        <section className="relative flex min-h-svh flex-col justify-center">
-            <div>
+        <section className="relative flex min-h-svh flex-col justify-center overflow-hidden">
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
                 <motion.p
+                    variants={itemVariants}
                     className="mb-4 text-xs tracking-widest text-muted uppercase"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0.19, 1, 0.22, 1],
-                        delay: 0.1,
-                    }}
                 >
                     ZHICXI AZIS PRAMANA &mdash; SOFTWARE ENGINEER
                 </motion.p>
                 <motion.h1
+                    variants={itemVariants}
                     className="mb-4 text-[clamp(3rem,8vw,8rem)]"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0.19, 1, 0.22, 1],
-                        delay: 0.2,
-                    }}
                 >
                     I need work,
                     <br />
@@ -55,40 +109,29 @@ export function HeroSection() {
                     </span>
                 </motion.h1>
                 <motion.div
+                    variants={itemVariants}
                     className="flex flex-col gap-2 pt-3 text-sm text-muted md:flex-row md:justify-between"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0.19, 1, 0.22, 1],
-                        delay: 0.3,
-                    }}
                 >
                     <p>Let's work together</p>
                     <p>and make a lot of money.</p>
                 </motion.div>
-            </div>
+            </motion.div>
 
             <AnimatePresence>
                 {isVisible && (
                     <motion.button
+                        variants={scrollButtonVariants}
+                        initial="hidden"
+                        animate={
+                            shouldReduceMotion
+                                ? 'visible'
+                                : ['visible', 'floating']
+                        }
+                        whileHover="hover"
+                        whileTap="tap"
+                        exit="exit"
                         onClick={scrollToWork}
-                        className="absolute bottom-12 left-1/2 -translate-x-1/2 cursor-pointer text-[10px] tracking-[0.3em] text-muted uppercase transition-colors duration-300 hover:text-foreground"
-                        initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-                        animate={{
-                            opacity: 1,
-                            y: 0,
-                            filter: 'blur(0px)',
-                        }}
-                        exit={{
-                            opacity: 0,
-                            y: 20,
-                            filter: 'blur(8px)',
-                        }}
-                        transition={{
-                            duration: 0.8,
-                            ease: [0.19, 1, 0.22, 1],
-                        }}
+                        className="fixed bottom-12 left-1/2 z-50 cursor-pointer text-[10px] tracking-[0.3em] text-muted uppercase"
                     >
                         Scroll to Explore
                     </motion.button>

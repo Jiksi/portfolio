@@ -1,4 +1,4 @@
-import { motion } from 'motion/react';
+import { motion, useInView } from 'motion/react';
 import { useRef } from 'react';
 import { ContactSection } from '~/components/home/contact-section';
 import { HeroSection } from '~/components/home/hero-section';
@@ -20,6 +20,8 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const workRef = useRef<HTMLElement>(null);
+    const isWorkInView = useInView(workRef, { amount: 0.2 });
     const { maskImage } = useMouseSpotlight();
 
     return (
@@ -36,8 +38,8 @@ export default function Home() {
 
             <main className="relative z-10 mx-auto max-w-350 px-4 md:px-8">
                 <Navigation />
-                <HeroSection />
-                <WorkSection />
+                <HeroSection isWorkInView={isWorkInView} />
+                <WorkSection ref={workRef} />
                 <ContactSection />
                 <Footer />
             </main>
