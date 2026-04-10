@@ -121,39 +121,8 @@
         }
     }
 
-    .work-image-wrapper {
-        @apply relative aspect-16/10 w-full overflow-hidden border border-white/10 bg-black/20;
-    }
-
-    .work-image-slider {
-        @apply relative h-full w-full;
-    }
-
-    .work-image {
-        @apply absolute top-0 left-0 h-full w-full object-cover contrast-[1.1] grayscale transition-all duration-500;
-    }
-
     .work-item.expanded:hover .work-image {
         @apply contrast-100 grayscale-0;
-    }
-
-    .slider-arrow {
-        @apply absolute top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 cursor-pointer items-center justify-center border-none bg-black/30 font-mono text-[1.2rem] text-white opacity-0 backdrop-blur-sm transition-all duration-300;
-    }
-
-    .work-image-wrapper:hover .slider-arrow {
-        @apply opacity-100;
-    }
-
-    .slider-arrow:hover {
-        @apply bg-white/90 text-foreground;
-    }
-
-    .slider-arrow.prev {
-        @apply left-0;
-    }
-    .slider-arrow.next {
-        @apply right-0;
     }
 
     .work-info {
