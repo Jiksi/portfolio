@@ -19,13 +19,12 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-    const containerRef = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLElement>(null);
     const isHeroInView = useInView(heroRef, { amount: 0.8 });
     const { maskImage } = useMouseSpotlight();
 
     return (
-        <div ref={containerRef}>
+        <div>
             <div className="fixed top-0 left-0 z-0 size-full">
                 <motion.div
                     className="fixed top-0 left-0 z-0 size-full bg-[linear-gradient(to_right,var(--color-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-border)_1px,transparent_1px)] bg-size-[50px_50px]"
