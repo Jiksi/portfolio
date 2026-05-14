@@ -1,3 +1,4 @@
+import { LayoutGroup, motion } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
 import { projects } from '~/data/projects';
 import { ProjectItem } from './project-item';
@@ -33,22 +34,32 @@ export function WorkSection({
 
     return (
         <section id="work" ref={ref}>
-            <div className="section-header animate-fade-up">
-                <h2 className="section-title">Selected Works</h2>
-                <span className="section-meta">[02]</span>
-            </div>
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: [0.19, 1, 0.22, 1] }}
+                className="mb-4 flex items-baseline justify-between"
+            >
+                <h2 className="text-[clamp(2rem,4vw,4rem)]">Selected Works</h2>
+                <span className="text-xs text-muted">[02]</span>
+            </motion.div>
 
-            <div className="work-list" ref={workListRef}>
-                {projects.map((project, index) => (
-                    <ProjectItem
-                        key={project.id}
-                        project={project}
-                        index={index}
-                        isExpanded={expandedId === project.id}
-                        toggleExpand={toggleExpand}
-                    />
-                ))}
-            </div>
+            <LayoutGroup>
+                <div
+                    className="flex flex-col border-t border-border"
+                    ref={workListRef}
+                >
+                    {projects.map((project) => (
+                        <ProjectItem
+                            key={project.id}
+                            project={project}
+                            isExpanded={expandedId === project.id}
+                            onToggle={() => toggleExpand(project.id)}
+                        />
+                    ))}
+                </div>
+            </LayoutGroup>
         </section>
     );
 }

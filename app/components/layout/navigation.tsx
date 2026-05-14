@@ -1,4 +1,4 @@
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll } from 'motion/react';
 import { useState } from 'react';
 import { Link } from 'react-router';
 import MagneticButton from '../magnetic-button';
@@ -79,7 +79,7 @@ export function Navigation() {
 
     return (
         <motion.nav
-            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-b-from-80% mask-b-to-100% p-4 md:px-8"
+            className="fixed top-0 left-0 z-50 flex w-full items-center justify-between mask-[linear-gradient(to_bottom,black_80%,transparent_100%)] p-4 md:px-8"
             initial={{ opacity: 0, y: -30 }}
             animate={{
                 opacity: 1,
