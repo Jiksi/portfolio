@@ -66,7 +66,7 @@ export function ImageSlider({
                         drag="x"
                         dragConstraints={{ left: 0, right: 0 }}
                         dragElastic={1}
-                        className="absolute top-0 left-0 h-full w-full object-cover contrast-[1.1] grayscale"
+                        className="absolute top-0 left-0 h-full w-full object-cover"
                         onDragEnd={(e, { offset, velocity }) => {
                             const swipe = swipePower(offset.x, velocity.x);
 
