@@ -3,11 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { projects } from '~/data/projects';
 import { ProjectItem } from './project-item';
 
-export function WorkSection({
-    ref,
-}: {
-    ref?: React.RefObject<HTMLElement | null>;
-}) {
+export function WorkSection() {
     const [expandedId, setExpandedId] = useState<string | null>(null);
     const workListRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +29,7 @@ export function WorkSection({
     }, [expandedId]);
 
     return (
-        <section id="work" ref={ref}>
+        <section id="work">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}

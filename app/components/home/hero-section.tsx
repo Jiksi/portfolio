@@ -5,8 +5,14 @@ import {
     type Variants,
 } from 'motion/react';
 
-export function HeroSection({ isWorkInView }: { isWorkInView?: boolean }) {
-    const isVisible = !isWorkInView;
+export function HeroSection({
+    isHeroInView,
+    ref,
+}: {
+    isHeroInView?: boolean;
+    ref?: React.RefObject<HTMLElement | null>;
+}) {
+    const isVisible = isHeroInView;
     const shouldReduceMotion = useReducedMotion();
 
     const scrollToWork = () => {
@@ -86,7 +92,10 @@ export function HeroSection({ isWorkInView }: { isWorkInView?: boolean }) {
     };
 
     return (
-        <section className="relative flex min-h-svh flex-col justify-center overflow-hidden">
+        <section
+            ref={ref}
+            className="relative flex min-h-svh flex-col justify-center overflow-hidden"
+        >
             <motion.div
                 variants={containerVariants}
                 initial="hidden"

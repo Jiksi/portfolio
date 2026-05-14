@@ -20,8 +20,8 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const workRef = useRef<HTMLElement>(null);
-    const isWorkInView = useInView(workRef, { amount: 0.2 });
+    const heroRef = useRef<HTMLElement>(null);
+    const isHeroInView = useInView(heroRef, { amount: 0.8 });
     const { maskImage } = useMouseSpotlight();
 
     return (
@@ -38,8 +38,8 @@ export default function Home() {
 
             <main className="relative z-10 mx-auto max-w-350 px-4 md:px-8">
                 <Navigation />
-                <HeroSection isWorkInView={isWorkInView} />
-                <WorkSection ref={workRef} />
+                <HeroSection isHeroInView={isHeroInView} ref={heroRef} />
+                <WorkSection />
                 <ContactSection />
                 <Footer />
             </main>
