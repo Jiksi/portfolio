@@ -1,4 +1,6 @@
 import { AnimatePresence, motion } from 'motion/react';
+import { useState } from 'react';
+import { Button } from '../ui/button';
 import { ImageSlider } from '../ui/image-slider';
 
 export type ProjectProps = {
@@ -17,49 +19,83 @@ export type ProjectProps = {
 };
 
 export function ProjectItem({ project, isExpanded, onToggle }: ProjectProps) {
+    const [isHovered, setIsHovered] = useState(false);
+    const [originY, setOriginY] = useState<0 | 1>(0);
+
+    const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const relativeY = e.clientY - rect.top;
+        // If enters from top half, anchor to top (0) so it grows DOWN
+        setOriginY(relativeY < rect.height / 2 ? 0 : 1);
+        setIsHovered(true);
+    };
+
+    const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const relativeY = e.clientY - rect.top;
+        // When leaving, update originY so it retracts towards the exit side
+        setOriginY(relativeY < rect.height / 2 ? 0 : 1);
+        setIsHovered(false);
+    };
+
     return (
         <motion.div
             layout
             initial={false}
-            className="group border-b border-border"
+            className="group border-b border-black"
         >
             {/* Simple View / Header */}
             <motion.div
                 layout="position"
                 onClick={onToggle}
-                className="flex cursor-pointer items-center justify-between py-8 transition-colors hover:bg-black/2"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                className="relative flex cursor-pointer items-center justify-between py-4 transition-colors"
             >
-                <div className="flex flex-1 items-baseline gap-8">
-                    <h3 className="text-2xl font-medium tracking-tight md:text-4xl">
-                        {project.title}
-                    </h3>
-                </div>
+                {/* Background Fill Animation */}
+                <motion.div
+                    className="absolute inset-0 z-0 bg-black"
+                    initial={{ height: 0 }}
+                    animate={{ height: isHovered ? '100%' : 0 }}
+                    transition={{
+                        duration: 0.4,
+                        ease: [0.19, 1, 0.22, 1],
+                    }}
+                    style={{
+                        originY,
+                        bottom: originY === 1 ? 0 : 'auto',
+                        top: originY === 0 ? 0 : 'auto',
+                    }}
+                />
 
-                <div className="flex items-center gap-12 text-right">
-                    <span className="hidden font-mono text-xs tracking-widest uppercase opacity-40 md:block">
-                        {project.tech}
-                    </span>
-                    <span className="font-mono text-xs">{project.year}</span>
-                    <motion.div
-                        animate={{ rotate: isExpanded ? 45 : 0 }}
-                        className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10"
-                    >
-                        <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                        >
-                            <path
-                                d="M6 1V11M1 6H11"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                            />
-                        </svg>
-                    </motion.div>
-                </div>
+                {/* Content Wrapper for Padding and Color Animation */}
+                <motion.div
+                    animate={{
+                        paddingLeft: isHovered ? '1.5rem' : '0rem',
+                        paddingRight: isHovered ? '1.5rem' : '0rem',
+                        color: isHovered ? '#FFFFFF' : 'inherit',
+                    }}
+                    transition={{
+                        duration: 0.4,
+                        ease: [0.19, 1, 0.22, 1],
+                    }}
+                    className="relative z-10 flex w-full items-center justify-between"
+                >
+                    <div className="flex flex-1 items-baseline gap-8">
+                        <h3 className="text-2xl font-medium tracking-tight md:text-4xl">
+                            {project.title}
+                        </h3>
+                    </div>
+
+                    <div className="flex items-center gap-12 text-right">
+                        <span className="hidden font-mono text-xs tracking-widest uppercase opacity-40 md:block">
+                            {project.tech}
+                        </span>
+                        <span className="font-mono text-xs">
+                            {project.year}
+                        </span>
+                    </div>
+                </motion.div>
             </motion.div>
 
             {/* Detailed View */}
@@ -75,7 +111,7 @@ export function ProjectItem({ project, isExpanded, onToggle }: ProjectProps) {
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="grid gap-12 pb-12 md:grid-cols-2">
+                        <div className="grid gap-6 py-6 md:grid-cols-2 md:gap-12">
                             <div className="order-2 md:order-1">
                                 <ImageSlider
                                     imageUrls={project.imageUrls}
@@ -104,28 +140,28 @@ export function ProjectItem({ project, isExpanded, onToggle }: ProjectProps) {
                                     </div>
                                 </div>
 
-                                <div className="mt-12 flex gap-4">
+                                <div className="mt-6 flex gap-4 md:mt-12">
                                     {project.githubUrl && (
-                                        <a
+                                        <Button
                                             href={project.githubUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={(e) => e.stopPropagation()}
-                                            className="inline-flex h-12 items-center justify-center border border-black/10 bg-black/5 px-8 font-mono text-xs tracking-widest uppercase transition-all hover:bg-foreground hover:text-background"
+                                            variant="primary"
                                         >
                                             GitHub
-                                        </a>
+                                        </Button>
                                     )}
                                     {project.websiteUrl && (
-                                        <a
+                                        <Button
                                             href={project.websiteUrl}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             onClick={(e) => e.stopPropagation()}
-                                            className="inline-flex h-12 items-center justify-center border border-black/10 bg-foreground px-8 font-mono text-xs tracking-widest text-background uppercase transition-all hover:bg-transparent hover:text-foreground"
+                                            variant="outline"
                                         >
                                             Live Site
-                                        </a>
+                                        </Button>
                                     )}
                                 </div>
                             </div>

@@ -47,7 +47,7 @@ export function WorkSection({
 
             <LayoutGroup>
                 <div
-                    className="flex flex-col border-t border-border"
+                    className="flex flex-col border-t border-black"
                     ref={workListRef}
                 >
                     {projects.map((project) => (
