@@ -7,7 +7,7 @@ export type ProjectProps = {
     project: {
         id: string;
         title: string;
-        tech: string;
+        tech: string[];
         year: string;
         description: string;
         imageUrls: string[];
@@ -89,7 +89,8 @@ export function ProjectItem({ project, isExpanded, onToggle }: ProjectProps) {
 
                     <div className="flex items-center gap-12 text-right">
                         <span className="hidden font-mono text-xs tracking-widest uppercase opacity-40 md:block">
-                            {project.tech}
+                            {project.tech.slice(0, 3).join(', ')}
+                            {project.tech.length > 3 && '...'}
                         </span>
                         <span className="font-mono text-xs">
                             {project.year}
@@ -111,22 +112,22 @@ export function ProjectItem({ project, isExpanded, onToggle }: ProjectProps) {
                         }}
                         className="overflow-hidden"
                     >
-                        <div className="grid gap-6 py-6 md:grid-cols-2 md:gap-12">
-                            <div className="order-2 md:order-1">
+                        <div className="grid gap-6 py-6 xl:grid-cols-2 xl:gap-12">
+                            <div className="order-2 xl:order-1">
                                 <ImageSlider
                                     imageUrls={project.imageUrls}
                                     title={project.title}
                                 />
                             </div>
 
-                            <div className="order-1 flex flex-col justify-between md:order-2">
+                            <div className="order-1 flex flex-col justify-between xl:order-2">
                                 <div className="space-y-6">
                                     <div className="space-y-2">
                                         <p className="text-muted-foreground font-mono text-[10px] tracking-[0.2em] uppercase">
                                             Technologies
                                         </p>
                                         <p className="text-sm font-medium">
-                                            {project.tech}
+                                            {project.tech.join(', ')}
                                         </p>
                                     </div>
 
